@@ -1,154 +1,86 @@
-'use client';
-import { useState } from 'react';
-import { auth } from "@/utils/firebaseConfig";
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import './globals.css';
+import SidebarAdmin from '@/app/commpo/sidebar';
 
-export default function SidebarAdmin() {
-  const [user, setUser] = useState(auth.currentUser);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  if (!user) {
-    auth.onAuthStateChanged((newUser) => {
-      setUser(newUser);
-    });
-  }
-
-  const handleSignOut = async () => {
-    try {
-      await auth.signOut();
-      window.location.href = '/login';
-    } catch (error) {
-      console.error("Error signing out: ", error);
-    }
-  };
-
-  const handleDashboard = () => {
-    window.location.href = '/admin/dashboard';
-  };
-
-  const handleUsers = () => {
-    window.location.href = '/admin/users';
-  };
-
-  const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen);
-  };
-
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen);
-  };
-
+export default function Page() {
   return (
-    <div>
-      {/* Mobile View Hamburger Menu */}
-      <div className="lg:hidden p-4 flex justify-between items-center bg-gray-800 text-white">
-        <img src="mystroke.png" alt="MyStroke Logo" className="h-10 w-10 mr-4 rounded-full" />
-        <button onClick={toggleSidebar} className="text-white">
-          <i className={`fa ${sidebarOpen ? 'fa-times' : 'fa-bars'} text-3xl`}></i>
-        </button>
+    <div className="flex h-screen flex-col md:flex-row">
+      {/* Sidebar */}
+      <div className="w-full flex-none md:w-64">
+        <SidebarAdmin />
       </div>
 
-      {/* Sidebar */}
-      <aside className={`fixed top-0 left-0 h-screen w-72 bg-[#354151] text-white flex flex-col items-center p-0 transition-transform transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}>
-        <div className="flex items-center mt-10 mb-12">
-          <img src="mystroke.png" alt="MyStroke Logo" className="h-10 w-10 mr-4 rounded-full" />
-          <span className="text-white font-bold text-3xl">MyStroke</span>
+      {/* Main Content */}
+      <div className="flex flex-col flex-grow p-8 text-white">
+        {/* Search Bar */}
+        <div className="flex items-center mb-8">
+          <i className="fa-solid fa-magnifying-glass text-2xl mr-4"></i>
+          <input
+            type="text"
+            placeholder="Search something here..."
+            className="border-none bg-transparent outline-none w-full py-2 text-white placeholder-gray-400"
+          />
         </div>
 
-        <nav className="mt-4 flex-grow w-full">
-          <ul className="list-none m-0 p-0 w-full">
-            <li className="mb-4">
-              <a className="nav-item text-white flex items-center cursor-pointer" onClick={handleDashboard}>
-                <i className="mr-3 fa-solid fa-table-columns text-3xl"></i>
-                <span className="text-lg">Dashboard</span>
-              </a>
-            </li>
-
-            <a className="nav-item text-white flex items-center cursor-pointer" onClick={handleUsers}>
-              <i className="mr-3 fa-solid fa-user text-3xl"></i>
-              <span className="text-lg">Users</span>
-            </a>
+        {/* Main Content */}
+        <div className="flex flex-col items-center justify-center h-full">
+          {/* Large Square with Inner Squares */}
+          <div className="bg-[#354151] rounded-lg p-8 w-full max-w-4xl">
+            <div className="mb-8 text-2xl font-bold">Statistic</div>
+            <div className="flex justify-between mb-12">
+              <div className="bg-white text-black rounded-lg p-4 w-32 h-16 flex items-center justify-center">
+              <i className="fa-solid fa-user-group text-3xl"></i></div>
+              <div className="bg-white text-black rounded-lg p-4 w-32 h-16 flex items-center justify-center"><i className="fa-solid fa-clipboard-list text-3xl"></i></div>
+              <div className="bg-white text-black rounded-lg p-4 w-32 h-16 flex items-center justify-center"><i className="fa-solid fa-users text-3xl"></i></div>
+              <div className="bg-white text-black rounded-lg p-4 w-32 h-16 flex items-center justify-center"><i className="fa-regular fa-face-smile text-3xl text-[#61FF29]"></i></div>
+            </div>
             
-            <div className=" border-b-2 border-b-[#6A83A1] py-2" ></div>
-           
-            <li className="mb-4">
-            </li>
-            <li className="mb-4 relative">
-              <a className="nav-item text-white flex items-center cursor-pointer" onClick={toggleDropdown}>
-                <i className="mr-3 fa-solid fa-users text-3xl"></i>
-                <span className="text-lg">My classroom</span>
-                <i className={`ml-3 fa-solid fa-angle-right text-lg ${dropdownOpen ? 'rotate-90' : ''}`}></i>
-              </a>
-              {dropdownOpen && (
-                <ul className="absolute left-0 top-full bg-gray-800 text-white rounded shadow-md py-2 transition-all duration-300 w-full">
-                  <li className="px-4 py-2 hover:bg-gray-700">
-                    <a href="#" className="text-white block">Class 1</a>
-                  </li>
-                  <li className="px-4 py-2 hover:bg-gray-700">
-                    <a href="#" className="text-white block">Class 2</a>
-                  </li>
-                  <li className="px-4 py-2 hover:bg-gray-700">
-                    <a href="#" className="text-white block">Class 3</a>
-                  </li>
-                </ul>
-              )}
-            </li>
-            <li className="mb-4">
-              <a className="nav-item text-white flex items-center cursor-pointer" onClick={handleUsers}>
-                <i className="mr-3 fa-solid fa-calendar-days text-3xl"></i>
-                <span className="text-lg">Calendar</span>
-              </a>
-            </li>
-            <li className="mb-4">
-              <a className="nav-item text-white flex items-center cursor-pointer" onClick={handleUsers}>
-                <i className="mr-3 fa-solid fa-circle-half-stroke text-3xl"></i>
-                <span className="text-lg">Theme</span>
-              </a>
-            </li>
-            <li className="mb-4 mb-32">
-              <a className="nav-item text-white flex items-center cursor-pointer" onClick={handleUsers}>
-                <i className="mr-3 fa-solid fa-chart-pie text-3xl"></i>
-                <span className="text-lg">Statistic</span>
-              </a>
-            </li>
-          </ul>
-          
-          <div className="  border-b-[#6A83A1] py-2" style={{borderBottomWidth: "0.6px"}}></div>
-
-        <button
-          className="text-white px-4 py-2 mb-5 rounded flex items-center w-full"
-        >
-          <i className="text-3xl mr-3 fa-solid fa-user-plus"></i>
-          <span className="text-lg">New Class</span>
-        </button>
-
-        <div className=" border-b-2 border-b-[#6A83A1] py-2" ></div>
-
-        <button
-          onClick={handleSignOut}
-          className=" text-white px-4 mb-5 py-2 rounded flex items-center w-full"
-        >
-          <i className="text-3xl mr-3 fa-solid fa-right-from-bracket"></i>
-          <span className="text-lg">Log Out</span>
-        </button>
-
-        <div className=" border-b-2 border-b-[#6A83A1] py-2" ></div>
-        
-        {user ? (
-          <h1 className="text-xl font-bold mb-4">{user.email}</h1>
-        ) : (
-          <h1 className="text-2xl font-bold mb-4">Loading...</h1>
-        )}
-        </nav>
-      </aside>
-
-      {/* Overlay for mobile view */}
-      {sidebarOpen && (
-        <div onClick={toggleSidebar} className="lg:hidden"></div>
-      )}
+          </div>
+          <div className="grid grid-cols-2 gap-8 mt-7">
+              <div className="bg-white text-black rounded-lg p-4 w-full h-48 flex items-center justify-center">New patients statics</div>
+              <div className="bg-white text-black rounded-lg p-4 w-full h-48 flex items-center justify-center">Old patients statics</div>
+            </div>
+          {/* Upcoming Appointment */}
+          <div className="bg-[#354151] rounded-lg p-8 w-full max-w-4xl mt-8">
+            <div className="mb-8 text-2xl font-bold">Upcoming appointment</div>
+            <div className="overflow-auto">
+              <table className="w-full">
+                <thead className="bg-[#2b3a42] text-white">
+                  <tr>
+                    <th className="py-2 px-4">Name</th>
+                    <th className="py-2 px-4">Gender</th>
+                    <th className="py-2 px-4">Date</th>
+                    <th className="py-2 px-4">Time</th>
+                    <th className="py-2 px-4">Details</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="bg-[#2b3a42] text-white">
+                    <td className="py-2 px-4">Patient 1</td>
+                    <td className="py-2 px-4">Male</td>
+                    <td className="py-2 px-4">Oct 1, 2024</td>
+                    <td className="py-2 px-4">10:00AM</td>
+                    <td className="py-2 px-4">Details</td>
+                  </tr>
+                  <tr className="bg-[#2b3a42] text-white">
+                    <td className="py-2 px-4">Patient 8</td>
+                    <td className="py-2 px-4">Female</td>
+                    <td className="py-2 px-4">Oct 5, 2024</td>
+                    <td className="py-2 px-4">12:00PM</td>
+                    <td className="py-2 px-4">Details</td>
+                  </tr>
+                  <tr className="bg-[#2b3a42] text-white">
+                    <td className="py-2 px-4">Patient 12</td>
+                    <td className="py-2 px-4">Male</td>
+                    <td className="py-2 px-4">Oct 8, 2024</td>
+                    <td className="py-2 px-4">01:00PM</td>
+                    <td className="py-2 px-4">Details</td>
+                  </tr>
+                  {/* Add more rows as needed */}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    
   );
 }
