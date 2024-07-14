@@ -43,7 +43,9 @@ export async function login(formData: FormData) {
         confirmButtonText: 'Okay'
       }).then(() => {
         console.log("Swal fired for login success");
-        window.location.href = '/';
+        if (typeof window !== 'undefined') {
+          window.location.href = '/';
+        }
       });
 
       return true;
@@ -78,17 +80,19 @@ export async function login(formData: FormData) {
 }
 
 export function checkAuthState() {
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      console.log("User is already logged in, redirecting to main page");
-      window.location.href = '/';
-    } else {
-      console.log("No user is logged in, showing login page");
-      if (window.location.pathname !== '/login') {
-        window.location.href = '/login';
+  if (typeof window !== 'undefined') {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log("User is already logged in, redirecting to main page");
+        window.location.href = '/';
+      } else {
+        console.log("No user is logged in, showing login page");
+        if (window.location.pathname !== '/login') {
+          window.location.href = '/login';
+        }
       }
-    }
-  });
-}
+    });
 
-window.addEventListener('load', checkAuthState);
+    window.addEventListener('load', checkAuthState);
+  }
+}
