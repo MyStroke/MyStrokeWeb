@@ -1,17 +1,49 @@
+"use client"; // Add this line at the top
+
 import SidebarAdmin from '@/app/commpo/sidebar';
+import ChartComponent from '@/app/commpo/chart';
+import { useEffect, useState } from 'react';
+import Clock from '@/app/commpo/clock';
 
 export default function Page() {
+  const [newPatientsData, setNewPatientsData] = useState({});
+  const [oldPatientsData, setOldPatientsData] = useState({});
+
+  useEffect(() => {
+    // Simulating fetching data for new patients
+    setNewPatientsData({
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+      datasets: [
+        {
+          label: 'New Patients',
+          data: [50, 40, 60, 80, 100, 90, 70],
+        },
+      ],
+    });
+
+    // Simulating fetching data for old patients
+    setOldPatientsData({
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+      datasets: [
+        {
+          label: 'Old Patients',
+          data: [45, 35, 55, 75, 95, 85, 65],
+        },
+      ],
+    });
+  }, []);
+
   return (
-    <div className="flex h-screen flex-col md:flex-row">
+    <div className="flex h-screen">
       {/* Sidebar */}
-      <div className="w-full flex-none md:w-64">
+      <div className="w-full md:w-64 sidebar no-scrollbar">
         <SidebarAdmin />
       </div>
 
       {/* Main Content */}
-      <div className="flex flex-col flex-grow p-8 text-white">
+      <div className="flex flex-col flex-grow p-8 text-white overflow-y-scroll no-scrollbar">
         {/* Search Bar */}
-        <div className="flex items-center mb-8">
+        <div className="flex items-center fixed">
           <i className="fa-solid fa-magnifying-glass text-2xl mr-4"></i>
           <input
             type="text"
@@ -21,27 +53,45 @@ export default function Page() {
         </div>
 
         {/* Main Content */}
-        <div className="flex flex-col items-center justify-center h-full">
+        <div className="flex mt-28 flex-col items-center justify-center h-full">
           {/* Large Square with Inner Squares */}
           <div className="bg-[#354151] rounded-lg p-8 w-full max-w-4xl">
             <div className="mb-8 text-2xl font-bold">Statistic</div>
             <div className="flex justify-between mb-12">
               <div className="bg-white text-black rounded-lg p-4 w-32 h-16 flex items-center justify-center">
-              <i className="fa-solid fa-user-group text-3xl"></i></div>
-              <div className="bg-white text-black rounded-lg p-4 w-32 h-16 flex items-center justify-center"><i className="fa-solid fa-clipboard-list text-3xl"></i></div>
-              <div className="bg-white text-black rounded-lg p-4 w-32 h-16 flex items-center justify-center"><i className="fa-solid fa-users text-3xl"></i></div>
-              <div className="bg-white text-black rounded-lg p-4 w-32 h-16 flex items-center justify-center"><i className="fa-regular fa-face-smile text-3xl text-[#61FF29]"></i></div>
+                <i className="fa-solid fa-user-group text-3xl"></i>
+              </div>
+              <div className="bg-white text-black rounded-lg p-4 w-32 h-16 flex items-center justify-center">
+                <i className="fa-solid fa-clipboard-list text-3xl"></i>
+              </div>
+              <div className="bg-white text-black rounded-lg p-4 w-32 h-16 flex items-center justify-center">
+                <i className="fa-solid fa-users text-3xl"></i>
+              </div>
+              <div className="bg-white text-black rounded-lg p-4 w-32 h-16 flex items-center justify-center">
+                <i className="fa-regular fa-face-smile text-3xl text-[#61FF29]"></i>
+              </div>
             </div>
-            
           </div>
           <div className="grid grid-cols-2 gap-8 mt-7">
-              <div className="bg-white text-black rounded-lg p-4 w-full h-48 flex items-center justify-center">New patients statics</div>
-              <div className="bg-white text-black rounded-lg p-4 w-full h-48 flex items-center justify-center">Old patients statics</div>
+            <div className="bg-[#354151] text-white rounded-lg p-4 w-full h-52 items-center justify-center">
+              <div className='flex text-xl'>New patients statics
+                <i className=" ml-auto block fa-solid fa-chart-line text-xl text-[#26FF03]"></i>
+              </div>
+              <div><ChartComponent data={newPatientsData} gradientFrom="#FFFFFF" gradientTo="#7B7FDF" /></div>
+
             </div>
+            <div className="bg-[#354151] text-white rounded-lg p-4 w-full h-52  items-center justify-center">
+              <div className='flex text-xl'><div className='text-[#FFF970]'>Old &nbsp; </div> patients statics
+                <i className=" ml-auto block fa-solid fa-chart-line text-xl text-[#FFF970]"></i>
+              </div>
+              <ChartComponent data={oldPatientsData} gradientFrom="#FFFFFF" gradientTo="#E9CA5D" />
+
+            </div>
+          </div>
           {/* Upcoming Appointment */}
           <div className="bg-[#354151] rounded-lg p-8 w-full max-w-4xl mt-8">
             <div className="mb-8 text-2xl font-bold">Upcoming appointment</div>
-            <div className="overflow-auto">
+            <div className="table-container">
               <table className="w-full">
                 <thead className="bg-[#2b3a42] text-white">
                   <tr>
@@ -74,13 +124,23 @@ export default function Page() {
                     <td className="py-2 px-4">01:00PM</td>
                     <td className="py-2 px-4">Details</td>
                   </tr>
-                  {/* Add more rows as needed */}
                 </tbody>
               </table>
             </div>
           </div>
         </div>
       </div>
+
+      {/* right BAr */}
+      <div className='flex'>
+
+            {/* clock */}
+        <div className=''>
+        <Clock />
+          </div>
+
+      </div>
+
     </div>
   );
 }

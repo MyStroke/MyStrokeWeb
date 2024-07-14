@@ -84,6 +84,9 @@ export function checkAuthState() {
       window.location.href = '/';
     } else {
       console.log("No user is logged in, showing login page");
+      if (window.location.pathname !== '/login') {
+        window.location.href = '/login';
+      }
     }
   });
 }

@@ -21,7 +21,7 @@ export default function Login() {
     //     return;
     //   }
     return (
-        <div className="h-full flex items-center justify-center w-full">
+        <div className="h-screen flex items-center justify-center w-full">
 
             <div className="w-10/12 md:w-7/12 xl:w-9/12 m-auto block xl:flex ">
                 <div className='w-full p-3 rounded-2xl xl:rounded-none xl:rounded-s-2xl' style={{ backgroundColor: "#404C5E" }}>

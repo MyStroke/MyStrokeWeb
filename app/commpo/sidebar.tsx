@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import { auth, db } from "@/utils/firebaseConfig";
 import { collection, doc, getDoc } from "firebase/firestore";
+import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import '../globals.css';
 
@@ -19,7 +20,15 @@ export default function SidebarAdmin() {
       setUser(newUser);
     });
   }
-
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      console.log("No user is logged in, showing login page");
+      if (window.location.pathname !== '/login') {
+        window.location.href = '/login';
+      }
+    }
+  });
+  
   useEffect(() => {
     const readUser = async () => {
       const userCollection = collection(db, "Doctor");
@@ -182,5 +191,3 @@ export default function SidebarAdmin() {
  
 
     
-
-
