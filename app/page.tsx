@@ -33,16 +33,16 @@ export default function Page() {
   }, []);
 
   return (
-    <div className="flex h-screen">
+    <div className="md:flex h-screen overflow-scroll">
       {/* Sidebar */}
-      <div className="w-full md:w-64 sidebar no-scrollbar">
+      <div className="w-full md:w-80 lg:w-64 sidebar no-scrollbar">
         <Sidebar />
       </div>
 
       {/* Main Content */}
-      <div className="flex flex-col flex-grow p-8 text-white overflow-y-scroll no-scrollbar">
+      <div className="flex flex-col flex-grow p-8 pt-0 pb-0 text-white overflow-y-scroll no-scrollbar ">
         {/* Search Bar */}
-        <div className="flex items-center fixed">
+        <div className="flex items-center fixed mt-8">
           <i className="fa-solid fa-magnifying-glass text-2xl mr-4"></i>
           <input
             type="text"
@@ -52,9 +52,9 @@ export default function Page() {
         </div>
 
         {/* Main Content */}
-        <div className="flex mt-28 flex-col items-center justify-center h-full">
+        <div className="flex mt-24 flex-col items-center justify-center h-full overflow-scroll">
           {/* Large Square with Inner Squares */}
-          <div className="bg-[#354151] rounded-lg p-8 w-full max-w-4xl">
+          <div className="bg-[#354151] rounded-lg p-8 w-full max-w-4xl lg:mt-64 xl:mt-20">
             <div className="mb-8 text-2xl font-bold">Statistic</div>
             <div className="flex justify-between mb-12">
               <div className="bg-white text-black rounded-lg p-4 w-32 h-16 flex items-center justify-center">
@@ -87,8 +87,9 @@ export default function Page() {
 
             </div>
           </div>
+
           {/* Upcoming Appointment */}
-          <div className="bg-[#354151] rounded-lg p-8 w-full max-w-4xl mt-8">
+          <div className="bg-[#354151] rounded-lg p-8 w-full max-w-4xl mt-8 mb-8">
             <div className="mb-8 text-2xl font-bold">Upcoming appointment</div>
             <div className="table-container">
               <table className="w-full">

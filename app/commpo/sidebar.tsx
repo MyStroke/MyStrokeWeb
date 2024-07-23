@@ -88,7 +88,7 @@ export default function Sidebar() {
       <aside className={`flex fixed md:relative w-3/4 md:w-full h-screen bg-[#354151] text-white  flex-col items-center p-0 transition-transform transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 overflow-y-auto`}>
         <nav className="mt-16 md:mt-4 flex-grow w-full">
           {/* Logo */}
-          <div className="flex items-center justify-center m-auto mt-5 mb-12">
+          <div className="flex items-center justify-center m-auto mt-5 md:mt-20 lg:mt-5 mb-12">
             <Image src={logo} alt="MyStroke Logo" className="h-10 w-10 mr-3 rounded-full" />
             <p className="text-white font-bold text-3xl">MyStroke</p>
           </div>
