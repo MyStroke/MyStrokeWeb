@@ -1,6 +1,5 @@
-"use client"; // Add this line at the top
-
-import SidebarAdmin from '@/app/commpo/sidebar';
+"use client";
+import Sidebar from '@/app/commpo/sidebar';
 import ChartComponent from '@/app/commpo/chart';
 import { useEffect, useState } from 'react';
 import Clock from '@/app/commpo/clock';
@@ -37,7 +36,7 @@ export default function Page() {
     <div className="flex h-screen">
       {/* Sidebar */}
       <div className="w-full md:w-64 sidebar no-scrollbar">
-        <SidebarAdmin />
+        <Sidebar />
       </div>
 
       {/* Main Content */}

@@ -10,6 +10,7 @@ import Swal from 'sweetalert2'
 
 export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
+    const [isClient, setIsClient] = useState(false);
     const router = useRouter();
 
     const togglePasswordVisibility = () => {
@@ -17,13 +18,14 @@ export default function Login() {
     };
 
     useEffect(() => {
+        setIsClient(true);
         if (typeof window !== 'undefined' && auth.currentUser) {
             console.log("User is already authenticated, redirecting to home page");
             router.push('/');
         }
     }, [router]);
 
-    if (typeof window === 'undefined') {
+    if (!isClient) {
         return null; // Prevent server-side rendering issues
     }
 
