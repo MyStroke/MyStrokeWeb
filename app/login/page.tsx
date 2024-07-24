@@ -42,11 +42,11 @@ export default function Login() {
                     <div className="flex justify-center items-center mt-3 p-3">
                         <form action={login}>
                             <div className="text-white p-8 rounded-lg shadow-lg" style={{backgroundColor: "#2E3F52"}}>
-                                <h1 className="text-lg xl:text-2xl font-bold mb-4">Hey, Welcome!</h1>
-                                <p className="mb-6 xl:rounded-e-2xl hidden xl:block">Please enter your Doctor’s ID and password to enter the website.</p>
+                                <h1 className="text-lg xl:text-2xl font-bold mb-4">เฮ้ ยินดีต้อนรับ!</h1>
+                                <p className="mb-6 xl:rounded-e-2xl hidden xl:block">กรุณากรอก ID แพทย์และรหัสผ่านของคุณเพื่อเป็นทั้งเว็บไซต์</p>
                                 <div className="mb-4">
                                     <label className="block text-gray-500 text-sm" htmlFor="doctorId">
-                                        Email doctor
+                                    บัตรประจำตัวแพทย์
                                     </label>
                                     <input
                                         name='emailDoctor'                                        
@@ -60,7 +60,7 @@ export default function Login() {
                                 </div>
                                 <div className="mb-4 relative">
                                     <label className="block text-gray-500 text-sm" htmlFor="password">
-                                        Password
+                                    รหัสผ่าน
                                     </label>
                                     <input
                                         name='passwordDoc'
@@ -86,14 +86,14 @@ export default function Login() {
                                 type="submit"
                                 className="w-full mt-5 mb-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
                             >
-                                Log in
+                                เข้าสู่ระบบ
                             </button>
                         </form>                        
                     </div>
                 </div>
                 {/* fordoctor */}
                 <div className='w-full p-5 rounded-none xl:rounded-e-2xl hidden xl:block' style={{ backgroundColor: "#2E3F52" }}>
-                    <p className="float-end text-gray-500 text-lg ">For Doctor</p> 
+                    <p className="float-end text-gray-500 text-lg ">สำหรับแพทย์</p> 
                     {/* image */}
                     <div className='w-full h-full flex items-center justify-center'>
                         <Image src="/Women working on laptop.png" alt="MyStroke Logo" width={400} height={400} className="w-full" />

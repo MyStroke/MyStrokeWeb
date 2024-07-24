@@ -85,7 +85,7 @@ export default function Sidebar() {
       
 
       {/* Sidebar */}
-      <aside className={`flex fixed md:relative w-3/4 md:w-full h-screen bg-[#354151] text-white  flex-col items-center p-0 transition-transform transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 overflow-y-auto`}>
+      <aside className={` no-scrollbar flex fixed md:relative w-3/4 md:w-full h-screen bg-[#354151] text-white  flex-col items-center p-0 transition-transform transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 overflow-y-auto`}>
         <nav className="mt-16 md:mt-4 flex-grow w-full">
           {/* Logo */}
           <div className="flex items-center justify-center m-auto mt-5 md:mt-20 lg:mt-5 mb-12">
@@ -99,7 +99,7 @@ export default function Sidebar() {
             <li className="mb-4">
               <Link href='/' className="nav-item text-white flex items-center cursor-pointer" >
                 <i className="mr-3 fa-solid fa-table-columns text-3xl"></i>
-                <span className="text-md">Dashboard</span>
+                <span className="text-md">แดสบอร์ด</span>
               </Link>
             </li>
 
@@ -107,7 +107,7 @@ export default function Sidebar() {
             <li className="mb-4">
               <Link href='/' className="nav-item text-white flex items-center cursor-pointer">
                 <i className="mr-3 fa-solid fa-user text-3xl"></i>
-                <span className="text-md">Users</span>
+                <span className="text-md">บัญชีผู้ใช้</span>
               </Link>
             </li>
 
@@ -118,7 +118,7 @@ export default function Sidebar() {
             <li className=" mt-5 mb-4 relative">
               <a className="nav-item text-white flex items-center cursor-pointer" onClick={toggleDropdown}>
                 <i className="mr-3 fa-solid fa-users text-3xl"></i>
-                <span className="text-md">My class</span>
+                <span className="text-md">คลาสของฉัน</span>
                 <i className={`ml-3 fa-solid fa-angle-right text-md ${dropdownOpen ? 'rotate-90' : ''}`}></i>
               </a>
               {dropdownOpen && (
@@ -140,7 +140,7 @@ export default function Sidebar() {
             <li className="mb-4">
               <a className="nav-item text-white flex items-center cursor-pointer">
                 <i className="mr-3 fa-solid fa-calendar-days text-3xl"></i>
-                <span className="text-md">Calendar</span>
+                <span className="text-md">ปฏิทิน</span>
               </a>
             </li>
 
@@ -148,7 +148,7 @@ export default function Sidebar() {
             <li className="mb-4">
               <a className="nav-item text-white flex items-center cursor-pointer">
                 <i className="mr-3 fa-solid fa-circle-half-stroke text-3xl"></i>
-                <span className="text-md">Theme</span>
+                <span className="text-md">ธีม</span>
               </a>
             </li>
             
@@ -156,7 +156,7 @@ export default function Sidebar() {
             <li className="mb-32">
               <a className="nav-item text-white flex items-center cursor-pointer">
                 <i className="mr-3 fa-solid fa-chart-pie text-3xl"></i>
-                <span className="text-md">Statistic</span>
+                <span className="text-md">สถิติ</span>
               </a>
             </li>
           </ul>
@@ -167,7 +167,7 @@ export default function Sidebar() {
           {/* Create new class */}
           <button className="text-white px-4 py-2 mb-1 mt-5 rounded flex items-center w-full justify-center">
             <i className="text-3xl mr-3 fa-solid fa-user-plus"></i>
-            <span className="text-md">Create new class</span>
+            <span className="text-md">สร้างคลาสใหม่</span>
           </button>
 
           {/* Divider */}
@@ -176,7 +176,7 @@ export default function Sidebar() {
           {/* Logout */}
           <button onClick={handleSignOut} className="text-white px-4 mb-1 py-2 mt-5 rounded flex items-center w-full justify-center">
             <i className="text-3xl mr-3 fa-solid fa-right-from-bracket"></i>
-            <span className="text-md">Logout</span>
+            <span className="text-md">ออกจากระบบ</span>
           </button>
 
           {/* Divider */}
