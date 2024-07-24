@@ -3,10 +3,18 @@ import Sidebar from '@/app/commpo/sidebar';
 import ChartComponent from '@/app/commpo/chart';
 import { useEffect, useState } from 'react';
 import Clock from '@/app/commpo/clock';
+import {Calendar} from "@nextui-org/react";
+import {parseDate} from '@internationalized/date';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
 export default function Page() {
   const [newPatientsData, setNewPatientsData] = useState({});
   const [oldPatientsData, setOldPatientsData] = useState({});
+
+  const date = new Date();
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const day = `${date.getFullYear()}-${month}-${date.getDate().toString().padStart(2, '0')}`;
 
   useEffect(() => {
     // Simulating fetching data for new patients
@@ -167,12 +175,24 @@ export default function Page() {
       </div>
 
       {/* right BAr */}
-      <div className='flex'>
+      <div className='mt-16'>
 
-            {/* clock */}
-        <div className=''>
-        <Clock />
-          </div>
+        {/* clock */}
+        <div className='mb-1'>
+          <Clock />
+        </div>
+
+        {/* calendar */}
+        <div className="w-full mb-3">
+          <Calendar aria-label="Date (Uncontrolled)" defaultValue={parseDate(day)} className='bg-[#354151]' />
+        </div>
+
+        {/* Edit */}
+        <button className="w-full bg-[#354151] opacity-90 hover:opacity-70 transition-all rounded-l-2xl shadow-lg flex items-center justify-center py-12">
+          <FontAwesomeIcon icon={faPenToSquare} className='text-xl mr-3' />
+          <p className='text-xl'>แก้ไข</p>
+        </button>
+
 
       </div>
 
