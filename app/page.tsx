@@ -42,9 +42,9 @@ export default function Page() {
       </div>
 
       {/* Main Content */}
-      <div className="flex flex-col flex-grow pt-0 pb-0 text-white overflow-y-scroll no-scrollbar ">
+      <div className="flex flex-col flex-grow px-8 pt-0 pb-0 text-white overflow-y-scroll no-scrollbar ">
         {/* Search Bar */}
-        <div className="flex items-center fixed mt-8 ml-8">
+        <div className="flex items-center fixed mt-8">
           <i className="fa-solid fa-magnifying-glass text-2xl mr-4"></i>
           <input
             type="text"
