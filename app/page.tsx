@@ -1,9 +1,10 @@
 "use client";
+import '@/app/car.css'; // Custom styling
+import {today, getLocalTimeZone} from "@internationalized/date";
 import Sidebar from "@/app/commpo/sidebar";
 import ChartComponent from "@/app/commpo/chart";
 import { useEffect, useState } from "react";
 import Clock from "@/app/commpo/clock";
-import MyStyledCalendar from '@/app/commpo/calendar';
 import { NextUIProvider } from '@nextui-org/react';
 import { Calendar } from "@nextui-org/react";
 import { parseDate } from "@internationalized/date";
@@ -14,6 +15,8 @@ import Image from "next/image";
 export default function Page() {
   const [newPatientsData, setNewPatientsData] = useState({});
   const [oldPatientsData, setOldPatientsData] = useState({});
+  let defaultDate = today(getLocalTimeZone());
+  let [focusedDate, setFocusedDate] = useState(defaultDate);
 
   const date = new Date();
   const month = (date.getMonth() + 1).toString().padStart(2, "0");
@@ -49,9 +52,9 @@ export default function Page() {
   }, []);
 
   return (
-    <div className="md:flex h-screen overflow-scroll no-scrollbar">
+    <div className="lg:flex h-screen overflow-scroll no-scrollbar">
       {/* Sidebar */}
-      <div className="w-full md:w-80 lg:w-64 sidebar no-scrollbar">
+      <div className="w-full lg:w-64 sidebar no-scrollbar">
         <Sidebar />
       </div>
 
@@ -63,18 +66,18 @@ export default function Page() {
           <input
             type="text"
             placeholder="ลองค้นหาบางอย่าง..."
-            className="border-none bg-transparent outline-none w-full py-2 text-white placeholder-gray-400"
+            className="border-none bg-transparent outline-none w-full py-2 text-white placeholder-gray-400 no-scrollbar"
           />
         </div>
 
         {/* Main Content */}
-        <div className="flex mt-24 flex-col items-center justify-center overflow-scroll">
+        <div className="flex mt-24 flex-col items-center justify-center overflow-scroll no-scrollbar">
           {/* Large Square with Inner Squares */}
-          <div className="bg-[#354151] rounded-lg p-8 w-full max-w-4xl lg:mt-64 xl:mt-20">
+          <div className="bg-[#354151] rounded-lg p-8 w-full max-w-4xl lg:mt-24">
             <div className="text-2xl font-bold">ค่าสถิติ</div>
-            <div className="block lg:flex justify-between">
+            <div className="block lg:flex m-auto">
               {/* Patients */}
-              <div className="bg-[#253345] text-black rounded-[12px] w-full px-4 py-2 m-5 mb-0 flex items-center">
+              <div className="bg-[#253345] text-black rounded-[12px] w-full px-4 py-2 m-3 ml-0 md:ml-3 mb-0 flex items-center">
                 <i className="fa-solid fa-user-group text-3xl text-[#7EA9FC] mr-3"></i>
                 <div>
                   <p className="text-white text-xl font-bold">7</p>
@@ -83,7 +86,7 @@ export default function Page() {
               </div>
 
               {/* History */}
-              <div className="bg-[#253345] text-black rounded-[12px] w-full px-4 py-2 m-5 mb-0 flex items-center">
+              <div className="bg-[#253345] text-black rounded-[12px] w-full px-4 py-2 m-3 ml-0 md:ml-3 mb-0 flex items-center">
                 <i className="fa-solid fa-clipboard-list text-3xl text-[#7EA9FC] mr-3"></i>
                 <div>
                   <p className="text-white text-xl font-bold">2</p>
@@ -92,7 +95,7 @@ export default function Page() {
               </div>
 
               {/* Classes */}
-              <div className="bg-[#253345] text-black rounded-[12px] w-full px-4 py-2 m-5 mb-0 flex items-center">
+              <div className="bg-[#253345] text-black rounded-[12px] w-full px-4 py-2 m-3 ml-0 md:ml-3 mb-0 flex items-center">
                 <i className="fa-solid fa-users text-3xl text-[#7EA9FC] mr-3"></i>
                 <div>
                   <p className="text-white text-xl font-bold">1</p>
@@ -101,7 +104,7 @@ export default function Page() {
               </div>
 
               {/* Feelings */}
-              <div className="bg-[#253345] text-black rounded-[12px] w-full px-4 py-2 m-5 mb-0 flex items-center">
+              <div className="bg-[#253345] text-black rounded-[12px] w-full px-4 py-2 m-3 ml-0 md:ml-3 mb-0 flex items-center">
                 <i className="fa-regular fa-face-smile text-3xl text-[#61FF29] mr-3"></i>
                 <div>
                   <p className="text-white text-xl font-bold">2</p>
@@ -112,9 +115,9 @@ export default function Page() {
           </div>
 
           {/* Patients statics */}
-          <div className="grid grid-cols-2 gap-8 mt-7 w-full max-w-4xl">
+          <div className="block md:flex mt-7 w-full max-w-4xl">
             {/* New */}
-            <div className="bg-[#354151] text-white rounded-lg p-4 w-full items-center justify-center">
+            <div className="bg-[#354151] text-white rounded-lg p-4 w-full items-center justify-center mb-5 md:mb-0 md:mr-8">
               <div className="flex text-xl">
                 สถิติผู้ป่วยรายใหม่
                 <i className=" ml-auto block fa-solid fa-chart-line text-xl text-[#26FF03]"></i>
@@ -129,7 +132,7 @@ export default function Page() {
             </div>
 
             {/* Old */}
-            <div className="bg-[#354151] text-white rounded-lg p-4 w-full  items-center justify-center">
+            <div className="bg-[#354151] text-white rounded-lg p-4 w-full  items-center justify-center mb-5 md:mb-0">
               <div className="flex text-xl">
                 สถิติผู้ป่วยรายเก่า
                 <i className=" ml-auto block fa-solid fa-chart-line text-xl text-[#FFF970]"></i>
@@ -145,7 +148,7 @@ export default function Page() {
           </div>
 
           {/* Upcoming Appointment */}
-          <div className="bg-[#354151] rounded-lg p-8 w-full max-w-4xl mt-8 mb-8">
+          <div className="bg-[#354151] rounded-lg p-8 w-full max-w-4xl md:mt-8 md:mb-8 ">
             <div className="mb-8 text-2xl font-bold">การนัดหมายเร็วๆนี้</div>
             <div className="table-container">
               <table className="w-full">
@@ -184,21 +187,25 @@ export default function Page() {
       </div>
 
       {/* right BAr */}
-      <div className="w-full p-8 md:p-0 md:w-1/5 mt-16 overflow-hidden">
+      <div className="w-full p-8 md:p-0 md:w-1/5 md:mt-16 overflow-hidden">
         {/* clock */}
         <div className="mb-1">
           <Clock />
         </div>
 
         {/* calendar */}
-        <div className="flex gap-x-4">
-        {/* <NextUIProvider>
-          <MyStyledCalendar />
-        </NextUIProvider> */}
+        <div className="flex gap-x-4 mb-3 overflow-hidden">
+          <Calendar
+            aria-label="Date (Uncontrolled)"
+            focusedValue={focusedDate}
+            value={defaultDate}
+            onFocusChange={setFocusedDate}
+           className="Calendar"
+          />
         </div>
 
         {/* Edit */}
-        <button className="w-full bg-[#354151] opacity-90 hover:opacity-70 transition-all rounded-2xl lg:rounded-l-2xl shadow-lg flex items-center justify-center py-12 mb-3">
+        <button className="w-full bg-[#354151] opacity-90 hover:opacity-70 transition-all rounded-2xl lg:rounded-r-none shadow-lg flex items-center justify-center py-12 mb-3">
           <FontAwesomeIcon icon={faPenToSquare} className="text-xl mr-3" />
           <p className="text-xl">แก้ไข</p>
         </button>

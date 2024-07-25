@@ -85,7 +85,7 @@ export default function Sidebar() {
       
 
       {/* Sidebar */}
-      <aside className={` no-scrollbar flex fixed md:relative w-3/4 md:w-full h-screen bg-[#354151] text-white  flex-col items-center p-0 transition-transform transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 overflow-y-auto`}>
+      <aside className={` no-scrollbar flex fixed lg:relative w-3/4 lg:w-full h-screen bg-[#354151] text-white  flex-col items-center p-0 transition-transform transform z-40 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 overflow-y-auto`}>
         <nav className="mt-16 md:mt-4 flex-grow w-full">
           {/* Logo */}
           <div className="flex items-center justify-center m-auto mt-5 md:mt-20 lg:mt-5 mb-12">
@@ -184,13 +184,13 @@ export default function Sidebar() {
 
           {/* Doctor information */}
           {user ? (
-            <div className="flex items-center p-4">
+            <div className="flex items-center p-4 w-full">
               <Image src={userData.information?.profile} width={100} height={100} alt="Doctor" className="rounded-full aspect-square mr-4 w-12" />
               <div>
                 <h1 className="text-md font-bold">{userData.username}</h1>
                 <p className="text-sm">{user.email}</p>
               </div>
-              <i className="fa-solid fa-gear text-xl ml-4"></i>
+              <i className="fa-solid fa-gear text-xl ml-auto"></i>
             </div>
           ) : (
             <h1 className="text-2xl font-bold mb-4">Loading...</h1>
