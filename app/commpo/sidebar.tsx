@@ -185,7 +185,7 @@ export default function Sidebar() {
           {/* Doctor information */}
           {user ? (
             <div className="flex items-center p-4">
-              <Image src={userData.information?.profile} width={100} height={100} alt="Doctor" className="h-12 w-12 rounded-full mr-4" />
+              <Image src={userData.information?.profile} width={100} height={100} alt="Doctor" className="rounded-full aspect-square mr-4 w-12" />
               <div>
                 <h1 className="text-md font-bold">{userData.username}</h1>
                 <p className="text-sm">{user.email}</p>
