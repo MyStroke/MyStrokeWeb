@@ -13,6 +13,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@nextui-org/react": "^2.4.6",
+    "@types/react-calendar": "^4.1.0",
     "@types/sweetalert": "^2.0.4",
     "chart.js": "^4.4.3",
     "firebase": "^10.12.3",

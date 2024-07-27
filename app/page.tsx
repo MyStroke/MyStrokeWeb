@@ -115,7 +115,7 @@ export default function Page() {
           </div>
 
           {/* Patients statics */}
-          <div className="block md:flex mt-7 w-full max-w-4xl">
+          <div className="block md:grid md:grid-cols-2 md:gap-3 mt-7 w-full max-w-4xl">
             {/* New */}
             <div className="bg-[#354151] text-white rounded-lg p-4 w-full items-center justify-center mb-5 md:mb-0 md:mr-8">
               <div className="flex text-xl">
@@ -187,7 +187,7 @@ export default function Page() {
       </div>
 
       {/* right BAr */}
-      <div className="w-full p-8 md:p-0 md:w-1/5 md:mt-16 overflow-hidden">
+      <div className="w-full p-8 pt-0 lg:p-0 lg:w-1/5 lg:mt-16 overflow-hidden">
         {/* clock */}
         <div className="mb-1">
           <Clock />
@@ -200,7 +200,7 @@ export default function Page() {
             focusedValue={focusedDate}
             value={defaultDate}
             onFocusChange={setFocusedDate}
-           className="Calendar"
+            className="Calendar w-full"
           />
         </div>
 

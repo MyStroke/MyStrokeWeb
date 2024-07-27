@@ -103,9 +103,9 @@ export default function Sidebar() {
               </Link>
             </li>
 
-            {/* Users */}
+            {/* Account */}
             <li className="mb-4">
-              <Link href='/' className="nav-item text-white flex items-center cursor-pointer">
+              <Link href='/account' className="nav-item text-white flex items-center cursor-pointer">
                 <i className="mr-3 fa-solid fa-user text-3xl"></i>
                 <span className="text-md">บัญชีผู้ใช้</span>
               </Link>
@@ -138,10 +138,10 @@ export default function Sidebar() {
 
             {/* Calendar */}
             <li className="mb-4">
-              <a className="nav-item text-white flex items-center cursor-pointer">
+              <Link href="/calendar" className="nav-item text-white flex items-center cursor-pointer">
                 <i className="mr-3 fa-solid fa-calendar-days text-3xl"></i>
                 <span className="text-md">ปฏิทิน</span>
-              </a>
+              </Link>
             </li>
 
             {/* Theme */}
@@ -154,10 +154,10 @@ export default function Sidebar() {
             
             {/* Statistic */}
             <li className="mb-32">
-              <a className="nav-item text-white flex items-center cursor-pointer">
+              <Link href="statistic" className="nav-item text-white flex items-center cursor-pointer">
                 <i className="mr-3 fa-solid fa-chart-pie text-3xl"></i>
                 <span className="text-md">สถิติ</span>
-              </a>
+              </Link>
             </li>
           </ul>
 
