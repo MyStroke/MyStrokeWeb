@@ -1,0 +1,74 @@
+.fc-media-screen {
+    width: 100%;
+}
+
+.fc-toolbar-title {
+    font-size: 20px !important;
+    width: 100%;
+}
+
+.fc-header-toolbar {
+    margin: 0px !important;
+    margin-top: 0;
+}
+
+.fc-button {
+    background: none !important;
+    border: none !important;
+    color: white !important;
+}
+
+.fc .fc-button-group .fc-next-button .fc-button .fc-button-primary {
+    margin: 0;
+    display: block;
+
+}
+
+.fc-button:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.fc-col-header-cell-cushion {
+    font-size: 17px !important;
+    color: white !important;
+}
+
+.fc-direction-ltr .fc-button-group > .fc-button:not(:first-child) {
+    display: none !important;
+    width: 0;
+}
+
+.fc-toolbar-chunk {
+    display: flex;
+    align-items: start;
+}
+
+.fc--button .fc-button .fc-button-primary {
+    display: none;
+}
+
+.fc-scrollgrid,
+.fc-scrollgrid-liquid,
+.fc-theme-standard,
+td,
+th {
+    border: none !important;
+}
+
+.fc-day-today {
+    background-color: #2655B0 !important;
+}
+
+.fc-daygrid-day-number {
+    color: white !important;
+    cursor: pointer;
+    font-size: 17px !important;
+}
+
+.fc-daygrid-day:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.fc-daygrid-day-top {
+    justify-content: center;
+}
