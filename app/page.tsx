@@ -1,29 +1,23 @@
 "use client";
-import '@/app/car.css'; // Custom styling
-import {today, getLocalTimeZone} from "@internationalized/date";
+import '@/app/car.css';
 import Sidebar from "@/app/commpo/sidebar";
 import ChartComponent from "@/app/commpo/chart";
 import { useEffect, useState } from "react";
 import Clock from "@/app/commpo/clock";
-import { NextUIProvider } from '@nextui-org/react';
-import { Calendar } from "@nextui-org/react";
-import { parseDate } from "@internationalized/date";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 
+// Calendar
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import thLocale from '@fullcalendar/core/locales/th';
+
 export default function Page() {
   const [newPatientsData, setNewPatientsData] = useState({});
   const [oldPatientsData, setOldPatientsData] = useState({});
-  let defaultDate = today(getLocalTimeZone());
-  let [focusedDate, setFocusedDate] = useState(defaultDate);
 
-  const date = new Date();
-  const month = (date.getMonth() + 1).toString().padStart(2, "0");
-  const day = `${date.getFullYear()}-${month}-${date
-    .getDate()
-    .toString()
-    .padStart(2, "0")}`;
+  const today = new Date();
 
   useEffect(() => {
     // Simulating fetching data for new patients
@@ -73,41 +67,41 @@ export default function Page() {
         {/* Main Content */}
         <div className="flex mt-24 flex-col items-center justify-center overflow-scroll no-scrollbar">
           {/* Large Square with Inner Squares */}
-          <div className="bg-[#354151] rounded-lg p-8 w-full max-w-4xl lg:mt-24">
+          <div className="bg-[#354151] rounded-lg p-8 w-full max-w-4xl lg:mt-48 xl:mt-24">
             <div className="text-2xl font-bold">ค่าสถิติ</div>
-            <div className="block lg:flex m-auto">
+            <div className="block md:grid md:grid-cols-2 xl:grid-cols-4 gap-3 m-auto items-center">
               {/* Patients */}
-              <div className="bg-[#253345] text-black rounded-[12px] w-full px-4 py-2 m-3 ml-0 md:ml-3 mb-0 flex items-center">
+              <div className="bg-[#253345] text-black rounded-[12px] w-full px-4 py-2 mt-3 flex items-center">
                 <i className="fa-solid fa-user-group text-3xl text-[#7EA9FC] mr-3"></i>
-                <div>
-                  <p className="text-white text-xl font-bold">7</p>
+                <div className='flex xl:block items-center mt-2 md:mt-0'>
+                  <p className="text-white text-xl font-bold mr-3 xl:mr-0">7</p>
                   <p className="text-[#BBBBBB] text-sm">ผู้ป่วย</p>
                 </div>
               </div>
 
               {/* History */}
-              <div className="bg-[#253345] text-black rounded-[12px] w-full px-4 py-2 m-3 ml-0 md:ml-3 mb-0 flex items-center">
+              <div className="bg-[#253345] text-black rounded-[12px] w-full px-4 py-2 mt-3 flex items-center">
                 <i className="fa-solid fa-clipboard-list text-3xl text-[#7EA9FC] mr-3"></i>
-                <div>
-                  <p className="text-white text-xl font-bold">2</p>
+                <div className='flex xl:block items-center mt-2 md:mt-0'>
+                  <p className="text-white text-xl font-bold mr-3 xl:mr-0">2</p>
                   <p className="text-[#BBBBBB] text-sm">ประวัติการบำบัด</p>
                 </div>
               </div>
 
               {/* Classes */}
-              <div className="bg-[#253345] text-black rounded-[12px] w-full px-4 py-2 m-3 ml-0 md:ml-3 mb-0 flex items-center">
+              <div className="bg-[#253345] text-black rounded-[12px] w-full px-4 py-2 mt-3 flex items-center">
                 <i className="fa-solid fa-users text-3xl text-[#7EA9FC] mr-3"></i>
-                <div>
-                  <p className="text-white text-xl font-bold">1</p>
+                <div className='flex xl:block items-center mt-2 md:mt-0'>
+                  <p className="text-white text-xl font-bold mr-3 xl:mr-0">1</p>
                   <p className="text-[#BBBBBB] text-sm">คลาสทั้งหมด</p>
                 </div>
               </div>
 
               {/* Feelings */}
-              <div className="bg-[#253345] text-black rounded-[12px] w-full px-4 py-2 m-3 ml-0 md:ml-3 mb-0 flex items-center">
+              <div className="bg-[#253345] text-black rounded-[12px] w-full px-4 py-2 mt-3 flex items-center">
                 <i className="fa-regular fa-face-smile text-3xl text-[#61FF29] mr-3"></i>
-                <div>
-                  <p className="text-white text-xl font-bold">2</p>
+                <div className='flex xl:block items-center mt-2 md:mt-0'>
+                  <p className="text-white text-xl font-bold mr-3 xl:mr-0">2</p>
                   <p className="text-[#BBBBBB] text-sm">ความรู้สึกผู้ป่วย</p>
                 </div>
               </div>
@@ -189,18 +183,26 @@ export default function Page() {
       {/* right BAr */}
       <div className="w-full p-8 pt-0 lg:p-0 lg:w-1/5 lg:mt-16 overflow-hidden">
         {/* clock */}
-        <div className="mb-1">
+        <div className="xl:mb-1 mt-6 mb-6">
           <Clock />
         </div>
 
         {/* calendar */}
-        <div className="flex gap-x-4 mb-3 overflow-hidden">
-          <Calendar
-            aria-label="Date (Uncontrolled)"
-            focusedValue={focusedDate}
-            value={defaultDate}
-            onFocusChange={setFocusedDate}
-            className="Calendar w-full"
+        <div className="flex gap-x-4 mb-3 bg-[#354151] px-6 py-2 pb-4 rounded-2xl lg:rounded-r-none shadow-lg">
+          <FullCalendar 
+            plugins={[
+              dayGridPlugin
+            ]}
+            locale={thLocale}
+            headerToolbar={{
+              left: "title",
+              center: "",
+              right: "prev,next"
+            }}
+            nowIndicator={true}
+            selectable={true}
+            selectMirror={true}
+            initialDate={today}
           />
         </div>
 

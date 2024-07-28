@@ -17,13 +17,17 @@ export default function Login() {
         setShowPassword(!showPassword);
     };
 
+    // Check if user is logged in
     useEffect(() => {
         setIsClient(true);
-        if (typeof window !== 'undefined' && auth.currentUser) {
-            console.log("User is already authenticated, redirecting to home page");
-            router.push('/');
-        }
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                router.push('/');
+            }
+        });
     }, [router]);
+
+    console.log();
 
     if (!isClient) {
         return null; // Prevent server-side rendering issues

@@ -1,55 +1,42 @@
 'use client';
-import { useEffect, useState } from 'react';
-import { auth, db } from "@/utils/firebaseConfig";
-import { collection, doc, getDoc } from "firebase/firestore";
-import { onAuthStateChanged } from 'firebase/auth';
+import { useState, useEffect } from 'react';
+import { auth } from "@/utils/firebaseConfig";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import '../globals.css';
 import Image from 'next/image';
 import logo from '@/public/mystroke.png';
 import Link from 'next/link';
+import { useUser } from '../action/read_user';
+import { getClassesForUser } from '../action/read_my_class';
+import { useRouter } from 'next/navigation';
 
- 
 export default function Sidebar() {
- 
   const [user, setUser] = useState(auth.currentUser);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [userData, setUserData] = useState<any>({});
+  const [classes, setClasses] = useState([]);
+  const { userData, loading } = useUser();
+  const router = useRouter();
 
   // Check if user is logged in
-  if (!user) {
-    auth.onAuthStateChanged((newUser) => {
-      setUser(newUser);
-    });
-  }
-
-  // If no user is logged in, redirect to login page
-  onAuthStateChanged(auth, (user) => {
-    if (!user) {
-      console.log("No user is logged in, showing login page");
-      if (window.location.pathname !== '/login') {
-        window.location.href = '/login';
-      }
-    }
-  });
-  
-  // Read user data
   useEffect(() => {
-    const readUser = async () => {
-      const userCollection = collection(db, "Doctor");
-      const userDoc = doc(userCollection, user?.uid);
-      const userSnapshot = await getDoc(userDoc);
-      const userDataReadUser = userSnapshot.data();
-      return userDataReadUser;
-    };
+    auth.onAuthStateChanged((user) => {
+      if (!user) {
+        router.push('/login');
+      } else {
+        setUser(user);
+      }
+    });
+}, [router]);
 
+  // Fetch classes
+  useEffect(() => {
     if (user) {
-      const fetchUserData = async () => {
-        const data = await readUser();
-        setUserData(data);
+      const fetchClasses = async () => {
+        const getClass = await getClassesForUser(user.uid);
+        setClasses(getClass);
       };
-      fetchUserData();
+      fetchClasses();
     }
   }, [user]);
 
@@ -73,16 +60,25 @@ export default function Sidebar() {
     setSidebarOpen(!sidebarOpen);
   };
 
-  return (   
+  // Loading page
+  if (loading) {
+    return (
+      <div className="w-full h-screen justify-center items-center flex">
+        <p className="text-2xl">Loading...</p>
+      </div>
+    );
+  }
+
+  return (
     <div>
       {/* Mobile View Hamburger Menu */}
       <div className="lg:hidden fixed w-full p-4 flex justify-between items-center bg-gray-800 text-white z-50">
         <Image src={logo} alt="MyStroke Logo" width={100} height={100} className="h-10 w-10 mr-4 rounded-full" />
-        <button onClick={toggleSidebar} className="text-white"> 
+        <button onClick={toggleSidebar} className="text-white">
           <i className={`fa ${sidebarOpen ? 'fa-times' : 'fa-bars'} text-3xl`}></i>
         </button>
       </div>
-      
+
 
       {/* Sidebar */}
       <aside className={` no-scrollbar flex fixed lg:relative w-3/4 lg:w-full h-screen bg-[#354151] text-white  flex-col items-center p-0 transition-transform transform z-40 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 overflow-y-auto`}>
@@ -115,23 +111,21 @@ export default function Sidebar() {
             <div className="border-b-2 border-b-[#6A83A1] py-2"></div>
 
             {/* My Class */}
-            <li className=" mt-5 mb-4 relative">
-              <a className="nav-item text-white flex items-center cursor-pointer" onClick={toggleDropdown}>
+            <li className="mt-5 relative">
+              <a className={`nav-item text-white flex items-center cursor-pointer ${dropdownOpen ? 'bg-[#2655B0]' : ''}`} 
+                onClick={toggleDropdown}
+              >
                 <i className="mr-3 fa-solid fa-users text-3xl"></i>
                 <span className="text-md">คลาสของฉัน</span>
-                <i className={`ml-3 fa-solid fa-angle-right text-md ${dropdownOpen ? 'rotate-90' : ''}`}></i>
+                <i className={`fa-solid fa-angle-right ml-auto text-md ${dropdownOpen ? 'rotate-90' : ''}`}></i>
               </a>
               {dropdownOpen && (
-                <ul className="  bg[#354151] text-white shadow-md transition-all duration-300 w-full">
-                  <li className="px-4 py-2 hover:bg-[#6A83A1]">
-                    <a href="#" className="text-white block">Class 1</a>
-                  </li>
-                  <li className="px-4 py-2 hover:bg-[#6A83A1]">
-                    <a href="#" className="text-white block">Class 2</a>
-                  </li>
-                  <li className="px-4 py-2 hover:bg-[6A83A1]">
-                    <a href="#" className="text-white block">Class 3</a>
-                  </li>
+                <ul className="text-white transition-all duration-300 w-full pointer">
+                  {classes.map((classItem: any, index) => (
+                    <li key={index} className="px-4 py-2 hover:bg-[#6A83A1] bg-[#374C69] cursor-pointer">
+                      <Link href={`/class/${classItem.id}`} className="text-white block">{classItem.name}</Link>
+                    </li>
+                  ))}
                 </ul>
               )}
             </li>
@@ -151,7 +145,7 @@ export default function Sidebar() {
                 <span className="text-md">ธีม</span>
               </a>
             </li>
-            
+
             {/* Statistic */}
             <li className="mb-32">
               <Link href="statistic" className="nav-item text-white flex items-center cursor-pointer">
@@ -193,7 +187,7 @@ export default function Sidebar() {
               <i className="fa-solid fa-gear text-xl ml-auto"></i>
             </div>
           ) : (
-            <h1 className="text-2xl font-bold mb-4">Loading...</h1>
+            <h1 className="text-2xl font-bold mb-4 text-center mt-4">Loading...</h1>
           )}
         </nav>
       </aside>
@@ -205,8 +199,3 @@ export default function Sidebar() {
     </div>
   );
 }
-
-
- 
-
-    

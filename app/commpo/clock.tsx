@@ -13,7 +13,7 @@ const Clock = () => {
   const formattedTime = time.toLocaleTimeString('th-TH', { hour: 'numeric', minute: 'numeric' });
 
   return (
-    <div style={{ fontSize: '40px', fontWeight: 'bold' }} className='flex items-center'>
+    <div style={{ fontSize: '36px', fontWeight: 'bold' }} className='flex items-center'>
       <div className="mr-3">
         {formattedTime <= '18:59' ? <FontAwesomeIcon icon={faSun} color='orange' /> : <FontAwesomeIcon icon={faMoon} color='yellow' />}
       </div>
