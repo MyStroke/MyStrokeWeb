@@ -11,6 +11,7 @@ import Swal from 'sweetalert2'
 export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
     const [isClient, setIsClient] = useState(false);
+    const [showDisclaimer, setShowDisclaimer] = useState(false);
     const router = useRouter();
 
     const togglePasswordVisibility = () => {
@@ -31,6 +32,22 @@ export default function Login() {
 
     if (!isClient) {
         return null; // Prevent server-side rendering issues
+    }
+
+    // Show Disclaimer
+    if (showDisclaimer) {
+        Swal.fire({
+            title: 'ข้อตกลงในการใช้ซอฟต์แวร์ (Disclaimer)',
+            html: `
+                <p class="text-left text-sm">
+                     ซอฟต์แวร์นี้เป็นผลงานที่พัฒนาขึ้นโดย นายเตชินท์ พงษ์มุกดา นายไอดิน ศรีสง่า นายธัญวิสิฏฐ์ อิ่นแก้ว จาก โรงเรียนยุพราชวิทยาลัย ภายใต้การดูแลของ นายปณวรรต บุญตาศานย์ ภายใต้โครงการ ซอฟต์แวร์เพื่อการประเมินความสามารถและฝึกทักษะฟื้นฟูสมรรถภาพการใช้มือของผู้ป่วยหลอดเลือดในสมอง ( MyStroke ) ซึ่งสนับสนุนโดย สำนักงานพัฒนาวิทยาศาสตร์และเทคโนโลยีแห่งชาติโดยมีวัตถุประสงค์เพื่อส่งเสริมให้นักเรียนและนักศึกษาได้เรียนรู้และฝึกทักษะในการพัฒนาซอฟต์แวร์ลิขสิทธิ์ของซอฟต์แวร์นี้จึงเป็นของผู้พัฒนา ซึ่งผู้พัฒนาได้อนุญาตให้สำนักงานพัฒนาวิทยาศาสตร์และเทคโนโลยีแห่งชาติเผยแพร่ซอฟต์แวร์นี้ตาม “ต้นฉบับ” โดยไม่มีการแก้ไขดัดแปลงใดๆ ทั้งสิ้น ให้แก่บุคคลทั่วไปได้ใช้เพื่อประโยชน์ส่วนบุคคลหรือประโยชน์ทางการศึกษาที่ไม่มีวัตถุประสงค์ในเชิงพาณิชย์โดยไม่คิดค่าตอบแทนการใช้ซอฟต์แวร์ดังน้ัน สำนักงานพัฒนาวิทยาศาสตร์และเทคโนโลยีแห่งชาติจึงไม่มีหน้าที่ในการดูแล บำรุงรักษา จัดการอบรมการใช้งาน หรือพัฒนาประสิทธิภาพซอฟต์แวร์ รวมทั้งไม่รับรองความถูกต้องหรือประสิทธิภาพการทำงานของซอฟต์แวร์ ตลอดจนไม่รับประกันความเสียหายต่างๆ อันเกิดจากการใช้ซอฟต์แวร์นี้ท้ังสิ้น
+                </p>
+            `,
+            showCloseButton: true,
+            showConfirmButton: false,
+        }).then(() => {
+            setShowDisclaimer(false);
+        })
     }
 
     return (
@@ -88,12 +105,15 @@ export default function Login() {
                             </div>
                             <button
                                 type="submit"
-                                className="w-full mt-5 mb-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                                className="w-full mt-5 mb-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
                             >
                                 เข้าสู่ระบบ
                             </button>
                         </form>                        
                     </div>
+
+                    {/* ข้อตกลง */}
+                    <p className="hidden sm:block text-center text-sm text-gray-400 cursor-pointer mb-5" onClick={() => setShowDisclaimer(true)}>ข้อตกลงในการใช้ซอฟต์แวร์</p>
                 </div>
                 {/* fordoctor */}
                 <div className='w-full p-5 rounded-none xl:rounded-e-2xl hidden xl:block' style={{ backgroundColor: "#2E3F52" }}>
