@@ -111,7 +111,7 @@ export default function Sidebar() {
             <div className="border-b-2 border-b-[#6A83A1] py-2"></div>
 
             {/* My Class */}
-            <li className="mt-5 relative">
+            <li className="mt-5 relative mb-4">
               <a className={`nav-item text-white flex items-center cursor-pointer ${dropdownOpen ? 'bg-[#2655B0]' : ''}`} 
                 onClick={toggleDropdown}
               >
